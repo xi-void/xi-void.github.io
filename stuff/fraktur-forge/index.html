@@ -120,66 +120,59 @@
 
     textarea {
       width: 100%;
-      min-height: 6rem;
+      min-height: 8rem;
       resize: vertical;
       background: rgba(0, 0, 0, 0.6);
       border: 1px solid var(--border);
       color: var(--text);
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 1.05rem;
+      line-height: 1.45;
       padding: 0.8rem;
       margin-bottom: 1.2rem;
     }
 
     textarea:focus { outline: none; border-color: var(--green-soft); }
 
-    .styles { display: grid; gap: 0.8rem; }
+    textarea[readonly] { background: rgba(0, 0, 0, 0.4); }
 
-    .style {
-      border: 1px solid var(--border);
-      background: var(--green-faint);
-      padding: 0.85rem 0.95rem;
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
     }
 
-    .style-name {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.6rem;
-      color: var(--green);
+    button {
+      cursor: pointer;
+      background: var(--green-faint);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
       font-size: 0.78rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      padding: 0.5rem 0.9rem;
     }
 
-    .style-out {
-      color: var(--text);
-      font-size: clamp(1rem, 4.4vw, 1.25rem);
-      line-height: 1.4;
-      word-break: break-word;
-      min-height: 1.4em;
-    }
-
-    .copy {
-      cursor: pointer;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.6rem;
-    }
-
-    .copy:hover, .copy:focus {
+    button:hover, button:focus {
       color: var(--green);
       border-color: var(--green-soft);
+      background: rgba(0, 255, 102, 0.22);
       outline: none;
     }
 
-    .copy.done { color: var(--green); border-color: var(--green-soft); }
+    button.primary {
+      border-color: var(--green-soft);
+      color: var(--green);
+    }
+
+    .status {
+      min-height: 1.4em;
+      color: var(--green);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
 
     footer {
       margin-top: 1.6rem;
@@ -189,6 +182,8 @@
       font-size: 0.78rem;
       line-height: 1.5;
     }
+
+    code { color: var(--green); }
   </style>
 </head>
 <body>
@@ -198,114 +193,96 @@
       <div class="sigil">text mutation // glyph substitution</div>
       <h1>FRAKTUR FORGE</h1>
       <p class="subtitle">
-        Transmute plain text into Unicode fraktur, bold-fraktur, double-struck,
-        and other field notations. Type above; every variant updates live.
+        Convert plain text into Unicode Fraktur. Useful for ID3 tags, occult
+        titles, and other extremely normal file-management rituals.
       </p>
 
-      <label for="input">source text</label>
-      <textarea id="input" placeholder="type something to forge...">Xi-Void</textarea>
+      <label for="input">plain text</label>
+      <textarea id="input" spellcheck="false" placeholder="The Ritual of Steel"></textarea>
 
-      <div class="styles" id="styles"></div>
+      <label for="output">fraktur output</label>
+      <textarea id="output" spellcheck="false" readonly placeholder="𝕿𝖍𝖊 𝕽𝖎𝖙𝖚𝖆𝖑 𝖔𝖋 𝕾𝖙𝖊𝖊𝖑"></textarea>
+
+      <div class="controls">
+        <button class="primary" id="convertBtn" type="button">convert</button>
+        <button id="copyBtn" type="button">copy output</button>
+        <button id="clearBtn" type="button">clear</button>
+        <button id="exampleBtn" type="button">insert example</button>
+      </div>
+      <div class="status" id="status" aria-live="polite"></div>
 
       <footer>
-        Δ pure unicode // nothing leaves this page // entropy contained
+        Δ basic Latin A-Z / a-z mapped // numbers, punctuation and unknown glyphs
+        preserved // nothing leaves this page // entropy contained
       </footer>
     </main>
   </div>
 
   <script>
-    // Build offset maps for styles that are contiguous in Unicode.
-    function range(name, upper, lower, digits) {
-      return { name, upper, lower, digits };
-    }
-
-    const cp = (s) => s.codePointAt(0);
-
-    const contiguous = [
-      range("Fraktur", 0x1D504, 0x1D51E, null),
-      range("Bold Fraktur", 0x1D56C, 0x1D586, null),
-      range("Double-Struck", 0x1D538, 0x1D552, 0x1D7D8),
-      range("Bold", 0x1D400, 0x1D41A, 0x1D7CE),
-      range("Italic", 0x1D434, 0x1D44E, null),
-      range("Monospace", 0x1D670, 0x1D68A, 0x1D7F6),
-      range("Sans-Serif", 0x1D5A0, 0x1D5BA, 0x1D7E2),
-      range("Script", 0x1D49C, 0x1D4B6, null),
-    ];
-
-    // Some fraktur/script letters have reserved holes filled by named chars.
-    const holes = {
-      0x1D506: "ℭ", 0x1D50B: "ℌ", 0x1D50C: "ℑ", 0x1D515: "ℜ", 0x1D51D: "ℨ",
-      0x1D49D: "ℬ", 0x1D4A0: "ℰ", 0x1D4A1: "ℱ", 0x1D4A3: "ℋ", 0x1D4A4: "ℐ",
-      0x1D4A7: "ℒ", 0x1D4A8: "ℳ", 0x1D4AD: "ℛ", 0x1D53A: "ℂ", 0x1D53F: "ℍ",
-      0x1D545: "ℕ", 0x1D547: "ℙ", 0x1D548: "ℚ", 0x1D549: "ℝ", 0x1D551: "ℤ",
-      0x1D506 + 0: "ℭ"
+    const map = {
+      "A":"𝕬","B":"𝕭","C":"𝕮","D":"𝕯","E":"𝕰","F":"𝕱","G":"𝕲","H":"𝕳","I":"𝕴","J":"𝕵","K":"𝕶","L":"𝕷","M":"𝕸",
+      "N":"𝕹","O":"𝕺","P":"𝕻","Q":"𝕼","R":"𝕽","S":"𝕾","T":"𝕿","U":"𝖀","V":"𝖁","W":"𝖂","X":"𝖃","Y":"𝖄","Z":"𝖅",
+      "a":"𝖆","b":"𝖇","c":"𝖈","d":"𝖉","e":"𝖊","f":"𝖋","g":"𝖌","h":"𝖍","i":"𝖎","j":"𝖏","k":"𝖐","l":"𝖑","m":"𝖒",
+      "n":"𝖓","o":"𝖔","p":"𝖕","q":"𝖖","r":"𝖗","s":"𝖘","t":"𝖙","u":"𝖚","v":"𝖛","w":"𝖜","x":"𝖝","y":"𝖞","z":"𝖟",
+      "Ä":"𝕬̈","Ö":"𝕺̈","Ü":"𝖀̈","ä":"𝖆̈","ö":"𝖔̈","ü":"𝖚̈",
+      "À":"𝕬̀","Á":"𝕬́","Â":"𝕬̂","È":"𝕰̀","É":"𝕰́","Ê":"𝕰̂","Ì":"𝕴̀","Í":"𝕴́","Î":"𝕴̂",
+      "Ò":"𝕺̀","Ó":"𝕺́","Ô":"𝕺̂","Ù":"𝖀̀","Ú":"𝖀́","Û":"𝖀̂",
+      "à":"𝖆̀","á":"𝖆́","â":"𝖆̂","è":"𝖊̀","é":"𝖊́","ê":"𝖊̂","ì":"𝖎̀","í":"𝖎́","î":"𝖎̂",
+      "ò":"𝖔̀","ó":"𝖔́","ô":"𝖔̂","ù":"𝖚̀","ú":"𝖚́","û":"𝖚̂",
+      "ß":"𝖘𝖘"
     };
 
-    function mapChar(ch, style) {
-      const c = cp(ch);
-      let base;
-      if (c >= 65 && c <= 90) base = style.upper + (c - 65);
-      else if (c >= 97 && c <= 122) base = style.lower + (c - 97);
-      else if (c >= 48 && c <= 57 && style.digits) base = style.digits + (c - 48);
-      else return ch;
-      if (holes[base]) return holes[base];
-      return String.fromCodePoint(base);
-    }
-
-    function transform(text, style) {
-      let out = "";
-      for (const ch of text) out += mapChar(ch, style);
-      return out;
-    }
-
     const input = document.getElementById("input");
-    const stylesEl = document.getElementById("styles");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+    const convertBtn = document.getElementById("convertBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const exampleBtn = document.getElementById("exampleBtn");
 
-    const blocks = contiguous.map((style) => {
-      const wrap = document.createElement("div");
-      wrap.className = "style";
+    function toFraktur(text) {
+      return Array.from(text).map(char => map[char] || char).join("");
+    }
 
-      const head = document.createElement("div");
-      head.className = "style-name";
+    function convert() {
+      output.value = toFraktur(input.value);
+      status.textContent = "";
+    }
 
-      const label = document.createElement("span");
-      label.textContent = style.name;
+    async function copyOutput() {
+      convert();
+      if (!output.value) {
+        status.textContent = "Nothing to copy.";
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(output.value);
+        status.textContent = "Copied to clipboard.";
+      } catch (err) {
+        output.focus();
+        output.select();
+        document.execCommand("copy");
+        status.textContent = "Copied using fallback method.";
+      }
+    }
 
-      const btn = document.createElement("button");
-      btn.className = "copy";
-      btn.type = "button";
-      btn.textContent = "copy";
+    input.addEventListener("input", convert);
+    convertBtn.addEventListener("click", convert);
+    copyBtn.addEventListener("click", copyOutput);
 
-      const out = document.createElement("div");
-      out.className = "style-out";
-
-      btn.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(out.textContent);
-          btn.textContent = "copied";
-          btn.classList.add("done");
-          setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("done"); }, 1200);
-        } catch (e) {
-          btn.textContent = "select+copy";
-        }
-      });
-
-      head.appendChild(label);
-      head.appendChild(btn);
-      wrap.appendChild(head);
-      wrap.appendChild(out);
-      stylesEl.appendChild(wrap);
-
-      return { style, out };
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      output.value = "";
+      status.textContent = "";
+      input.focus();
     });
 
-    function render() {
-      const text = input.value;
-      for (const b of blocks) b.out.textContent = transform(text, b.style);
-    }
+    exampleBtn.addEventListener("click", () => {
+      input.value = "The Ritual of Steel\nThe Anvil Beneath the Mountain\nOf Blood and Black Flame";
+      convert();
+    });
 
-    input.addEventListener("input", render);
-    render();
+    convert();
   </script>
 </body>
 </html>
