@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fraktur Forge // Xi-Void Tools</title>
+  <style>
+    :root {
+      --bg: #000;
+      --green: #00ff66;
+      --green-soft: rgba(0, 255, 102, 0.72);
+      --green-faint: rgba(0, 255, 102, 0.13);
+      --panel: rgba(0, 0, 0, 0.82);
+      --border: rgba(0, 255, 102, 0.36);
+      --text: #d8ffe5;
+      --muted: #79a989;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background:
+        radial-gradient(circle at center, rgba(0, 255, 102, 0.13), transparent 34rem),
+        linear-gradient(135deg, rgba(0, 255, 102, 0.08), transparent 38%),
+        #000;
+      color: var(--text);
+      font-family: "Courier New", Courier, monospace;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(0, 0, 0, 0.78) 100%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.024),
+          rgba(255, 255, 255, 0.024) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      pointer-events: none;
+    }
+
+    .screen {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 4vw, 2rem);
+      padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top));
+      padding-bottom: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom));
+    }
+
+    main {
+      width: min(720px, 100%);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow:
+        0 0 28px rgba(0, 255, 102, 0.12),
+        inset 0 0 20px rgba(0, 255, 102, 0.04);
+      padding: clamp(1.15rem, 5vw, 2.4rem);
+    }
+
+    .back {
+      display: inline-block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .back:hover, .back:focus { color: var(--green); outline: none; }
+
+    .sigil {
+      color: var(--green);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
+      line-height: 1.45;
+      margin-bottom: 0.8rem;
+      opacity: 0.85;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1.9rem, 9vw, 3.2rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 18px rgba(0, 255, 102, 0.38);
+    }
+
+    .subtitle {
+      margin: 1rem 0 1.6rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 58ch;
+      font-size: clamp(0.92rem, 3.5vw, 1rem);
+    }
+
+    label {
+      display: block;
+      color: var(--green);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 6rem;
+      resize: vertical;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    textarea:focus { outline: none; border-color: var(--green-soft); }
+
+    .styles { display: grid; gap: 0.8rem; }
+
+    .style {
+      border: 1px solid var(--border);
+      background: var(--green-faint);
+      padding: 0.85rem 0.95rem;
+    }
+
+    .style-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--green);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .style-out {
+      color: var(--text);
+      font-size: clamp(1rem, 4.4vw, 1.25rem);
+      line-height: 1.4;
+      word-break: break-word;
+      min-height: 1.4em;
+    }
+
+    .copy {
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .copy:hover, .copy:focus {
+      color: var(--green);
+      border-color: var(--green-soft);
+      outline: none;
+    }
+
+    .copy.done { color: var(--green); border-color: var(--green-soft); }
+
+    footer {
+      margin-top: 1.6rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <main>
+      <a class="back" href="/">← back to tools</a>
+      <div class="sigil">text mutation // glyph substitution</div>
+      <h1>FRAKTUR FORGE</h1>
+      <p class="subtitle">
+        Transmute plain text into Unicode fraktur, bold-fraktur, double-struck,
+        and other field notations. Type above; every variant updates live.
+      </p>
+
+      <label for="input">source text</label>
+      <textarea id="input" placeholder="type something to forge...">Xi-Void</textarea>
+
+      <div class="styles" id="styles"></div>
+
+      <footer>
+        Δ pure unicode // nothing leaves this page // entropy contained
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Build offset maps for styles that are contiguous in Unicode.
+    function range(name, upper, lower, digits) {
+      return { name, upper, lower, digits };
+    }
+
+    const cp = (s) => s.codePointAt(0);
+
+    const contiguous = [
+      range("Fraktur", 0x1D504, 0x1D51E, null),
+      range("Bold Fraktur", 0x1D56C, 0x1D586, null),
+      range("Double-Struck", 0x1D538, 0x1D552, 0x1D7D8),
+      range("Bold", 0x1D400, 0x1D41A, 0x1D7CE),
+      range("Italic", 0x1D434, 0x1D44E, null),
+      range("Monospace", 0x1D670, 0x1D68A, 0x1D7F6),
+      range("Sans-Serif", 0x1D5A0, 0x1D5BA, 0x1D7E2),
+      range("Script", 0x1D49C, 0x1D4B6, null),
+    ];
+
+    // Some fraktur/script letters have reserved holes filled by named chars.
+    const holes = {
+      0x1D506: "ℭ", 0x1D50B: "ℌ", 0x1D50C: "ℑ", 0x1D515: "ℜ", 0x1D51D: "ℨ",
+      0x1D49D: "ℬ", 0x1D4A0: "ℰ", 0x1D4A1: "ℱ", 0x1D4A3: "ℋ", 0x1D4A4: "ℐ",
+      0x1D4A7: "ℒ", 0x1D4A8: "ℳ", 0x1D4AD: "ℛ", 0x1D53A: "ℂ", 0x1D53F: "ℍ",
+      0x1D545: "ℕ", 0x1D547: "ℙ", 0x1D548: "ℚ", 0x1D549: "ℝ", 0x1D551: "ℤ",
+      0x1D506 + 0: "ℭ"
+    };
+
+    function mapChar(ch, style) {
+      const c = cp(ch);
+      let base;
+      if (c >= 65 && c <= 90) base = style.upper + (c - 65);
+      else if (c >= 97 && c <= 122) base = style.lower + (c - 97);
+      else if (c >= 48 && c <= 57 && style.digits) base = style.digits + (c - 48);
+      else return ch;
+      if (holes[base]) return holes[base];
+      return String.fromCodePoint(base);
+    }
+
+    function transform(text, style) {
+      let out = "";
+      for (const ch of text) out += mapChar(ch, style);
+      return out;
+    }
+
+    const input = document.getElementById("input");
+    const stylesEl = document.getElementById("styles");
+
+    const blocks = contiguous.map((style) => {
+      const wrap = document.createElement("div");
+      wrap.className = "style";
+
+      const head = document.createElement("div");
+      head.className = "style-name";
+
+      const label = document.createElement("span");
+      label.textContent = style.name;
+
+      const btn = document.createElement("button");
+      btn.className = "copy";
+      btn.type = "button";
+      btn.textContent = "copy";
+
+      const out = document.createElement("div");
+      out.className = "style-out";
+
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(out.textContent);
+          btn.textContent = "copied";
+          btn.classList.add("done");
+          setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("done"); }, 1200);
+        } catch (e) {
+          btn.textContent = "select+copy";
+        }
+      });
+
+      head.appendChild(label);
+      head.appendChild(btn);
+      wrap.appendChild(head);
+      wrap.appendChild(out);
+      stylesEl.appendChild(wrap);
+
+      return { style, out };
+    });
+
+    function render() {
+      const text = input.value;
+      for (const b of blocks) b.out.textContent = transform(text, b.style);
+    }
+
+    input.addEventListener("input", render);
+    render();
+  </script>
+</body>
+</html>

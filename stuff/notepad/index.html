@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notepad // Xi-Void Tools</title>
+  <style>
+    :root {
+      --bg: #000;
+      --green: #00ff66;
+      --green-soft: rgba(0, 255, 102, 0.72);
+      --green-faint: rgba(0, 255, 102, 0.13);
+      --panel: rgba(0, 0, 0, 0.82);
+      --border: rgba(0, 255, 102, 0.36);
+      --text: #d8ffe5;
+      --muted: #79a989;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background:
+        radial-gradient(circle at center, rgba(0, 255, 102, 0.13), transparent 34rem),
+        linear-gradient(135deg, rgba(0, 255, 102, 0.08), transparent 38%),
+        #000;
+      color: var(--text);
+      font-family: "Courier New", Courier, monospace;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(0, 0, 0, 0.78) 100%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.024),
+          rgba(255, 255, 255, 0.024) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      pointer-events: none;
+    }
+
+    .screen {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 4vw, 2rem);
+      padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top));
+      padding-bottom: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom));
+    }
+
+    main {
+      width: min(720px, 100%);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow:
+        0 0 28px rgba(0, 255, 102, 0.12),
+        inset 0 0 20px rgba(0, 255, 102, 0.04);
+      padding: clamp(1.15rem, 5vw, 2.4rem);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .back {
+      display: inline-block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .back:hover, .back:focus { color: var(--green); outline: none; }
+
+    .sigil {
+      color: var(--green);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
+      line-height: 1.45;
+      margin-bottom: 0.8rem;
+      opacity: 0.85;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1.9rem, 9vw, 3.2rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 18px rgba(0, 255, 102, 0.38);
+    }
+
+    .subtitle {
+      margin: 1rem 0 1.4rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 58ch;
+      font-size: clamp(0.92rem, 3.5vw, 1rem);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 18rem;
+      flex: 1;
+      resize: vertical;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 0.9rem;
+    }
+
+    textarea:focus { outline: none; border-color: var(--green-soft); }
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--green-faint);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.9rem;
+    }
+
+    button:hover, button:focus {
+      color: var(--green);
+      border-color: var(--green-soft);
+      background: rgba(0, 255, 102, 0.22);
+      outline: none;
+    }
+
+    .status {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+    }
+
+    footer {
+      margin-top: 1.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <main>
+      <a class="back" href="/">← back to tools</a>
+      <div class="sigil">scratch buffer // local persistence</div>
+      <h1>NOTEPAD</h1>
+      <p class="subtitle">
+        A throwaway buffer that saves itself to this browser. Nothing is sent
+        anywhere; text lives in local storage on this device alone.
+      </p>
+
+      <textarea id="pad" placeholder="start writing... saved automatically" spellcheck="false"></textarea>
+
+      <div class="bar">
+        <button type="button" id="download">download .txt</button>
+        <button type="button" id="copy">copy all</button>
+        <button type="button" id="clear">clear</button>
+        <span class="status" id="status"></span>
+      </div>
+
+      <footer>
+        Δ stored locally // <span id="count">0</span> chars // entropy contained
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const KEY = "xi-void-notepad";
+    const pad = document.getElementById("pad");
+    const status = document.getElementById("status");
+    const count = document.getElementById("count");
+
+    function updateCount() { count.textContent = pad.value.length; }
+
+    function flash(msg) {
+      status.textContent = msg;
+      clearTimeout(flash._t);
+      flash._t = setTimeout(() => { status.textContent = ""; }, 1400);
+    }
+
+    // Load saved content.
+    try {
+      const saved = localStorage.getItem(KEY);
+      if (saved !== null) pad.value = saved;
+    } catch (e) { /* storage unavailable */ }
+    updateCount();
+
+    let saveTimer;
+    pad.addEventListener("input", () => {
+      updateCount();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(KEY, pad.value);
+          flash("saved");
+        } catch (e) {
+          flash("save failed");
+        }
+      }, 250);
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      const blob = new Blob([pad.value], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "xi-void-note.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pad.value);
+        flash("copied");
+      } catch (e) {
+        pad.select();
+        flash("select+copy");
+      }
+    });
+
+    document.getElementById("clear").addEventListener("click", () => {
+      if (pad.value && !confirm("Clear the buffer? This cannot be undone.")) return;
+      pad.value = "";
+      updateCount();
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      flash("cleared");
+      pad.focus();
+    });
+  </script>
+</body>
+</html>
