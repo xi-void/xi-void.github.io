@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started // Xi-Void Guides</title>
+  <style>
+    :root {
+      --bg: #000;
+      --green: #00ff66;
+      --green-soft: rgba(0, 255, 102, 0.72);
+      --green-faint: rgba(0, 255, 102, 0.13);
+      --panel: rgba(0, 0, 0, 0.82);
+      --border: rgba(0, 255, 102, 0.36);
+      --text: #d8ffe5;
+      --muted: #79a989;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background:
+        radial-gradient(circle at center, rgba(0, 255, 102, 0.13), transparent 34rem),
+        linear-gradient(135deg, rgba(0, 255, 102, 0.08), transparent 38%),
+        #000;
+      color: var(--text);
+      font-family: "Courier New", Courier, monospace;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(0, 0, 0, 0.78) 100%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.024),
+          rgba(255, 255, 255, 0.024) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      pointer-events: none;
+    }
+
+    .screen {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 4vw, 2rem);
+      padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top));
+      padding-bottom: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom));
+    }
+
+    main {
+      width: min(720px, 100%);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow:
+        0 0 28px rgba(0, 255, 102, 0.12),
+        inset 0 0 20px rgba(0, 255, 102, 0.04);
+      padding: clamp(1.15rem, 5vw, 2.4rem);
+    }
+
+    .back {
+      display: inline-block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .back:hover, .back:focus { color: var(--green); outline: none; }
+
+    .sigil {
+      color: var(--green);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
+      line-height: 1.45;
+      margin-bottom: 0.8rem;
+      opacity: 0.85;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1.9rem, 9vw, 3.2rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 18px rgba(0, 255, 102, 0.38);
+    }
+
+    h2 {
+      color: var(--green);
+      font-size: clamp(1.1rem, 5vw, 1.4rem);
+      margin: 1.8rem 0 0.6rem;
+    }
+
+    p, li {
+      color: var(--text);
+      line-height: 1.7;
+      font-size: clamp(0.92rem, 3.5vw, 1rem);
+    }
+
+    .lede { color: var(--muted); margin: 1rem 0 0; }
+
+    a.inline { color: var(--green); }
+
+    ul { padding-left: 1.2rem; }
+
+    li { margin-bottom: 0.5rem; }
+
+    code {
+      color: var(--green);
+      background: var(--green-faint);
+      padding: 0.1rem 0.35rem;
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      margin-top: 1.8rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <main>
+      <a class="back" href="/guide">← back to guides</a>
+      <div class="sigil">field notes // orientation</div>
+      <h1>GETTING STARTED</h1>
+      <p class="lede">
+        A short orientation to what lives on this node and how the pieces fit.
+      </p>
+
+      <h2>The shape of things</h2>
+      <p>
+        Everything here is static and local. There is no backend, no account, and
+        no network traffic beyond loading the page itself. Tools that remember
+        anything use your browser's own storage and nothing leaves your device.
+      </p>
+
+      <h2>Tools</h2>
+      <ul>
+        <li>
+          <a class="inline" href="/tools/fraktur-forge">Fraktur Forge</a> —
+          transmute plain text into Unicode Fraktur for titles, tags, and other
+          symbolic damage.
+        </li>
+        <li>
+          <a class="inline" href="/tools/notepad">Notepad</a> — a throwaway
+          scratch buffer that auto-saves to this browser.
+        </li>
+        <li>
+          <a class="inline" href="/tools/countdown">Countdown</a> — set a
+          duration and watch it drain; flares and sounds a tone at zero.
+        </li>
+      </ul>
+
+      <h2>Guides</h2>
+      <p>
+        This section collects written procedures. Right now it holds only this
+        page — more notes get added here as the toolset grows.
+      </p>
+
+      <footer>
+        Δ static node // orientation complete // entropy contained
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
