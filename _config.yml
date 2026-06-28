@@ -1,0 +1,26 @@
+# Xi-Void Tools — Jekyll configuration
+title: Xi-Void Tools
+tagline: recursive tools // local implements
+description: >-
+  Small static utilities for text mutation, field notation, and other harmless
+  acts of symbolic damage. No backend, no accounts, no network — everything
+  runs locally in your browser.
+url: https://xi-void.github.io
+baseurl: ""
+lang: en
+repo: https://github.com/xi-void/xi-void.github.io
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Exclude non-site files from the build. The android/ native port is left in
+# place so its existing published path keeps working; it is not Jekyll content.
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .git
+keep_files:
+  - android

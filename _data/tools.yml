@@ -1,0 +1,42 @@
+# Tool registry — drives the home page menu, the command palette and nav.
+# Adding a tool = new folder under /tools/<slug>/ + one entry here.
+
+- slug: fraktur-forge
+  title: Fraktur Forge
+  sigil: text mutation // glyph substitution
+  blurb: Convert plain text into Unicode Fraktur.
+
+- slug: glitch-forge
+  title: Glitch Forge
+  sigil: text corruption // combining decay
+  blurb: Drown text in combining diacritics (zalgo).
+
+- slug: transmuter
+  title: Transmuter
+  sigil: text mutation // many alphabets
+  blurb: One box, many Unicode styles — small caps, upside-down, bold, more.
+
+- slug: cipher
+  title: Cipher
+  sigil: encoding // reversible transforms
+  blurb: ROT13, Caesar, Base64, hex and binary — encode and decode.
+
+- slug: keymaker
+  title: Keymaker
+  sigil: entropy // key generation
+  blurb: Generate strong passwords and passphrases locally.
+
+- slug: digest
+  title: Digest
+  sigil: hashing // one-way transforms
+  blurb: SHA-256 / SHA-1 hashes computed in your browser.
+
+- slug: notepad
+  title: Notepad
+  sigil: scratch buffer // local persistence
+  blurb: A throwaway buffer that auto-saves to this browser.
+
+- slug: countdown
+  title: Countdown
+  sigil: temporal decay // controlled descent
+  blurb: Set a duration and watch it drain; tone sounds at zero.

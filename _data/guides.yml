@@ -1,0 +1,46 @@
+# Guide registry — drives the guides hub, command palette and nav.
+# Adding a guide = new folder under /guide/<slug>/ + one entry here.
+
+- slug: getting-started
+  title: Getting Started
+  desc: What lives here and how the tools fit together.
+
+- slug: about
+  title: About
+  desc: What this node is, who keeps it, and how it is built.
+
+- slug: privacy
+  title: Privacy
+  desc: Why nothing you type ever leaves your device.
+
+- slug: fraktur-forge
+  title: Using Fraktur Forge
+  desc: Transmute plain text into Unicode Fraktur.
+
+- slug: glitch-forge
+  title: Using Glitch Forge
+  desc: Corrupt text with stacked combining marks.
+
+- slug: transmuter
+  title: Using Transmuter
+  desc: Switch text between many Unicode alphabets.
+
+- slug: cipher
+  title: Using Cipher
+  desc: Encode and decode with classic, reversible transforms.
+
+- slug: keymaker
+  title: Using Keymaker
+  desc: Generate strong passwords and passphrases.
+
+- slug: digest
+  title: Using Digest
+  desc: Hash text with SHA-256 and SHA-1.
+
+- slug: notepad
+  title: Using Notepad
+  desc: A local, auto-saving scratch buffer.
+
+- slug: countdown
+  title: Using Countdown
+  desc: Run a local timer that flares at zero.

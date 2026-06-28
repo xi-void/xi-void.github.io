@@ -1,0 +1,39 @@
+---
+layout: guide
+title: About
+sigil: field notes // provenance
+lede: What this node is, who keeps it, and how it is put together.
+description: About Xi-Void Tools — a small, static, dependency-free collection of browser utilities.
+footer_sign: provenance recorded
+---
+<h2>What this is</h2>
+<p>
+  Xi-Void Tools is a small collection of single-purpose web utilities with a
+  deliberately retro-terminal look. Each tool does one thing, runs entirely in
+  your browser, and asks nothing of you — no sign-in, no tracking, no server.
+</p>
+
+<h2>How it is built</h2>
+<p>
+  The site is static and built with <a class="inline" href="https://jekyllrb.com" rel="noopener">Jekyll</a>,
+  which GitHub Pages compiles automatically on every push. Shared layout, styling
+  and navigation live in one place (<code>_layouts</code>, <code>_includes</code>
+  and <code>_data</code>), so each page is just its content plus a little
+  front-matter. There is no JavaScript framework and no third-party dependency —
+  every tool is plain, hand-written HTML, CSS and JavaScript.
+</p>
+
+<h2>Design</h2>
+<p>
+  One stylesheet drives the whole aesthetic. The accent colour is a single CSS
+  variable, which is why the green / amber / cyan switch in the top bar can
+  recolour everything at once. Press <code>/</code> anywhere to jump between
+  tools with the command palette.
+</p>
+
+<h2>Source</h2>
+<p>
+  The full source lives on
+  <a class="inline" href="{{ site.repo }}" rel="noopener">GitHub</a>. Issues and
+  suggestions are welcome there.
+</p>

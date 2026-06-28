@@ -1,0 +1,18 @@
+{
+  "name": "Xi-Void Tools",
+  "short_name": "Xi-Void",
+  "description": "Small static utilities for text mutation and field notation. Everything runs locally in your browser.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ff66",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

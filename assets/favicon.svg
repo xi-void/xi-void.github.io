@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Xi-Void">
+  <rect width="64" height="64" fill="#000"/>
+  <rect x="1.5" y="1.5" width="61" height="61" fill="none" stroke="#00ff66" stroke-width="2" opacity="0.5"/>
+  <text x="32" y="44" font-family="Courier New, monospace" font-size="40" font-weight="bold"
+        text-anchor="middle" fill="#00ff66">Ξ</text>
+</svg>

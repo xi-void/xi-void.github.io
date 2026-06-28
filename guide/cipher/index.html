@@ -1,0 +1,30 @@
+---
+layout: guide
+title: Using Cipher
+sigil: field notes // cipher
+lede: Encode and decode with classic, reversible transforms.
+description: How to use Cipher to encode and decode text with ROT13, Caesar, Base64, hex and binary.
+tool: /tools/cipher/
+---
+<h2>What it does</h2>
+<p>
+  Cipher applies reversible text transforms: <strong>ROT13</strong>,
+  <strong>Caesar shift</strong>, <strong>Base64</strong>, <strong>hex</strong> and
+  <strong>binary</strong>. Each one can be run forward or backward.
+</p>
+
+<h2>How to use it</h2>
+<ul>
+  <li>Pick a <strong>scheme</strong>. ROT13 is symmetric; Caesar reveals a shift field; the rest reveal an encode/decode toggle.</li>
+  <li>Type into the <strong>input</strong> box; the output updates live.</li>
+  <li><strong>swap ↑</strong> moves the output back into the input and flips the direction, so you can round-trip a value.</li>
+  <li><strong>copy output</strong> grabs the result.</li>
+</ul>
+
+<h2>Notes</h2>
+<p>
+  These are encodings and obfuscations, not secure cryptography — anyone can
+  reverse them. Base64, hex and binary operate on the UTF-8 bytes of your text.
+  For one-way hashing use <a class="inline" href="{{ '/tools/digest/' | relative_url }}">Digest</a>;
+  to generate secrets use <a class="inline" href="{{ '/tools/keymaker/' | relative_url }}">Keymaker</a>.
+</p>

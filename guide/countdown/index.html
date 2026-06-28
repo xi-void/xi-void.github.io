@@ -1,0 +1,28 @@
+---
+layout: guide
+title: Using Countdown
+sigil: field notes // countdown
+lede: Run a local timer that flares at zero.
+description: How to use the Countdown timer, which runs locally and sounds a tone at zero.
+tool: /tools/countdown/
+---
+<h2>What it does</h2>
+<p>
+  Countdown is a simple timer. Set a duration and watch it drain; when it reaches
+  zero the display turns red, blinks, and a short tone sounds. Everything runs in
+  the tab — no network, no notifications permission.
+</p>
+
+<h2>How to use it</h2>
+<ul>
+  <li>Enter hours, minutes and seconds, or tap a <strong>preset</strong> (1 / 5 / 10 / 25 min).</li>
+  <li>Press <strong>start</strong>; use <strong>pause</strong> to hold and <strong>reset</strong> to return to the set time.</li>
+</ul>
+
+<h2>Notes</h2>
+<p>
+  The timer tracks real elapsed time, so it stays accurate even if the tab is
+  briefly throttled. The end tone uses the Web Audio API; if your browser blocks
+  audio until you interact with the page, the visual flare still fires. Keep the
+  tab open for the timer to run.
+</p>

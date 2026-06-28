@@ -1,0 +1,22 @@
+{%- comment -%}
+  Command palette overlay + a JSON index of every tool and guide, built from
+  _data so it stays in sync automatically.
+{%- endcomment -%}
+<div class="palette" id="palette" aria-hidden="true">
+  <div class="palette-box" role="dialog" aria-label="Jump to" aria-modal="true">
+    <input type="text" id="palette-input" placeholder="jump to a tool or guide…" autocomplete="off" spellcheck="false">
+    <ul class="palette-results" id="palette-results"></ul>
+  </div>
+</div>
+
+<script id="site-index" type="application/json">
+[
+{%- assign items = "" | split: "" -%}
+{%- for t in site.data.tools -%}
+  {"title": {{ t.title | jsonify }}, "kind": "tool", "url": {{ '/tools/' | append: t.slug | append: '/' | relative_url | jsonify }}, "blurb": {{ t.blurb | jsonify }}}{% unless forloop.last and site.data.guides.size == 0 %},{% endunless %}
+{%- endfor -%}
+{%- for g in site.data.guides -%}
+  {"title": {{ g.title | jsonify }}, "kind": "guide", "url": {{ '/guide/' | append: g.slug | append: '/' | relative_url | jsonify }}, "blurb": {{ g.desc | jsonify }}}{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+</script>

@@ -1,0 +1,54 @@
+---
+layout: tool
+title: Cipher
+sigil: encoding // reversible transforms
+subtitle: >-
+  Classic, reversible text transforms — ROT13, Caesar shift, Base64, hex and
+  binary. Pick a scheme, choose a direction, and run it locally.
+description: Encode and decode text with ROT13, Caesar shift, Base64, hex and binary — entirely in your browser.
+script: /assets/js/cipher.js
+guide: /guide/cipher/
+footer_sign: nothing leaves this page
+footer_note: >-
+  These are obfuscations and encodings, not secure cryptography. Base64, hex and
+  binary operate on UTF-8 bytes. For hashing see Digest; for keys see Keymaker.
+---
+<style>#cph-in, #cph-out { margin-bottom: 1.2rem; }</style>
+
+<div class="field-row">
+  <div class="field">
+    <label for="cph-mode">scheme</label>
+    <select id="cph-mode">
+      <option value="rot13">ROT13</option>
+      <option value="caesar">Caesar shift</option>
+      <option value="base64">Base64</option>
+      <option value="hex">Hex</option>
+      <option value="binary">Binary</option>
+    </select>
+  </div>
+  <div class="field" id="cph-dir-wrap">
+    <label for="cph-dir">direction</label>
+    <select id="cph-dir">
+      <option value="encode">encode</option>
+      <option value="decode">decode</option>
+    </select>
+  </div>
+  <div class="field" id="cph-shift-wrap" hidden>
+    <label for="cph-shift">shift</label>
+    <input id="cph-shift" type="number" min="-25" max="25" value="3" inputmode="numeric">
+  </div>
+</div>
+
+<label for="cph-in">input</label>
+<textarea id="cph-in" spellcheck="false" placeholder="text or encoded data"></textarea>
+
+<label for="cph-out">output</label>
+<textarea id="cph-out" spellcheck="false" readonly placeholder="result"></textarea>
+
+<div class="controls">
+  <button class="primary" id="cph-run" type="button">run</button>
+  <button id="cph-copy" type="button">copy output</button>
+  <button id="cph-swap" type="button">swap ↑</button>
+  <button id="cph-clear" type="button">clear</button>
+</div>
+<div class="status" id="cph-status" aria-live="polite"></div>

@@ -1,0 +1,14 @@
+{%- comment -%} Shared footer: real links + the customary cryptic sign-off. {%- endcomment -%}
+<footer>
+  {%- if include.note -%}
+  <div style="margin-bottom:0.6rem">{{ include.note }}</div>
+  {%- endif -%}
+  <div class="footer-links">
+    <a href="{{ '/' | relative_url }}">index</a>
+    <a href="{{ '/guide/' | relative_url }}">guides</a>
+    <a href="{{ '/guide/about/' | relative_url }}">about</a>
+    <a href="{{ '/guide/privacy/' | relative_url }}">privacy</a>
+    <a href="{{ site.repo }}" rel="noopener">source</a>
+  </div>
+  Δ static node // {{ include.sign | default: "tools exposed" }} // entropy contained
+</footer>

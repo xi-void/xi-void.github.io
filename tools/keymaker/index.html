@@ -1,0 +1,88 @@
+---
+layout: tool
+title: Keymaker
+sigil: entropy // key generation
+subtitle: >-
+  Generate strong passwords and passphrases using your browser's cryptographic
+  random source. Nothing is transmitted, logged, or stored.
+description: Generate strong random passwords and passphrases locally using the Web Crypto API.
+script: /assets/js/keymaker.js
+guide: /guide/keymaker/
+footer_sign: generated locally
+footer_note: >-
+  Randomness comes from crypto.getRandomValues. Entropy estimates assume each
+  character or word is chosen independently and uniformly. Generate a fresh key
+  for each use and store it in a real password manager.
+---
+<style>
+  .km-out {
+    font-size: 1.15rem;
+    word-break: break-all;
+    min-height: 1.6em;
+    padding: 0.9rem;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid var(--green-soft);
+    color: var(--green);
+    margin-bottom: 0.6rem;
+  }
+  .km-meta { color: var(--muted); font-size: 0.78rem; margin-bottom: 1rem; }
+  .km-opts label.opt {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    text-transform: none; letter-spacing: 0; color: var(--text);
+    font-size: 0.85rem; margin: 0 1rem 0.5rem 0;
+  }
+  .km-opts input[type="range"] { width: 100%; }
+  .km-row { margin-bottom: 1rem; }
+  .km-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; }
+</style>
+
+<div class="km-tabs">
+  <button class="primary" id="km-tab-pw" type="button">password</button>
+  <button id="km-tab-pp" type="button">passphrase</button>
+</div>
+
+<div class="km-out" id="km-out" aria-live="polite"></div>
+<div class="km-meta" id="km-meta"></div>
+
+<div class="km-opts">
+  <!-- password options -->
+  <div id="km-pw-opts">
+    <div class="km-row">
+      <label for="km-len">length: <span id="km-len-val">20</span></label>
+      <input id="km-len" type="range" min="6" max="64" value="20">
+    </div>
+    <div class="km-row">
+      <label class="opt"><input type="checkbox" id="km-lower" checked> lowercase</label>
+      <label class="opt"><input type="checkbox" id="km-upper" checked> uppercase</label>
+      <label class="opt"><input type="checkbox" id="km-digit" checked> digits</label>
+      <label class="opt"><input type="checkbox" id="km-symbol" checked> symbols</label>
+      <label class="opt"><input type="checkbox" id="km-ambig"> avoid look-alikes</label>
+    </div>
+  </div>
+
+  <!-- passphrase options -->
+  <div id="km-pp-opts" hidden>
+    <div class="km-row">
+      <label for="km-words">words: <span id="km-words-val">5</span></label>
+      <input id="km-words" type="range" min="3" max="10" value="5">
+    </div>
+    <div class="km-row">
+      <label class="opt">separator
+        <select id="km-sep" style="width:auto;display:inline-block">
+          <option value="-">-</option>
+          <option value=".">.</option>
+          <option value="_">_</option>
+          <option value=" ">space</option>
+        </select>
+      </label>
+      <label class="opt"><input type="checkbox" id="km-cap" checked> capitalize</label>
+      <label class="opt"><input type="checkbox" id="km-num" checked> add number</label>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="primary" id="km-gen" type="button">generate</button>
+  <button id="km-copy" type="button">copy</button>
+</div>
+<div class="status" id="km-status" aria-live="polite"></div>

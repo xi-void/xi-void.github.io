@@ -1,0 +1,36 @@
+{%- comment -%}
+  Shared top navigation + breadcrumb. Section is derived from the page URL so
+  no per-page plumbing is needed.
+{%- endcomment -%}
+{%- assign url = page.url -%}
+{%- if url contains "/tools/" -%}{%- assign section = "tools" -%}
+{%- elsif url contains "/guide" -%}{%- assign section = "guides" -%}
+{%- else -%}{%- assign section = "home" -%}
+{%- endif -%}
+<div class="topbar">
+  <nav class="topnav" aria-label="Primary">
+    <a href="{{ '/' | relative_url }}"{% if section == "home" %} aria-current="page"{% endif %}>Home</a>
+    <a href="{{ '/#tools' | relative_url }}"{% if section == "tools" %} aria-current="page"{% endif %}>Tools</a>
+    <a href="{{ '/guide/' | relative_url }}"{% if section == "guides" %} aria-current="page"{% endif %}>Guides</a>
+  </nav>
+
+  <button type="button" class="cmd-hint" data-palette-open aria-label="Open command palette">/ jump</button>
+
+  <div class="theme-switch" role="group" aria-label="Accent theme">
+    <button type="button" data-theme-set="green" title="green" aria-label="green accent"></button>
+    <button type="button" data-theme-set="amber" title="amber" aria-label="amber accent"></button>
+    <button type="button" data-theme-set="cyan" title="cyan" aria-label="cyan accent"></button>
+  </div>
+
+  {%- unless section == "home" -%}
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="{{ '/' | relative_url }}">Home</a>
+    {%- if section == "tools" -%}
+      <span class="sep">/</span><a href="{{ '/#tools' | relative_url }}">Tools</a>
+    {%- elsif section == "guides" -%}
+      <span class="sep">/</span><a href="{{ '/guide/' | relative_url }}">Guides</a>
+    {%- endif -%}
+    {%- if page.title -%}<span class="sep">/</span><span>{{ page.title }}</span>{%- endif -%}
+  </nav>
+  {%- endunless -%}
+</div>
