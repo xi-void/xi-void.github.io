@@ -1,290 +1,31 @@
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fraktur Forge // Xi-Void Tools</title>
-  <style>
-    :root {
-      --bg: #000;
-      --green: #00ff66;
-      --green-soft: rgba(0, 255, 102, 0.72);
-      --green-faint: rgba(0, 255, 102, 0.13);
-      --panel: rgba(0, 0, 0, 0.82);
-      --border: rgba(0, 255, 102, 0.36);
-      --text: #d8ffe5;
-      --muted: #79a989;
-    }
+---
+layout: tool
+title: Fraktur Forge
+sigil: text mutation // glyph substitution
+subtitle: >-
+  Convert plain text into Unicode Fraktur. Useful for ID3 tags, occult titles,
+  and other extremely normal file-management rituals.
+description: Convert plain text into Unicode Fraktur (blackletter) characters, entirely in your browser.
+script: /assets/js/fraktur-forge.js
+guide: /guide/fraktur-forge/
+footer_sign: nothing leaves this page
+footer_note: >-
+  Basic Latin A–Z / a–z mapped; German ä ö ü ß (and Ä Ö Ü ẞ) supported via
+  combining diaeresis, ß as 𝖘𝖘; numbers, punctuation and unknown glyphs are
+  preserved.
+---
+<style>#input, #output { margin-bottom: 1.2rem; }</style>
 
-    * { box-sizing: border-box; }
+<label for="input">plain text</label>
+<textarea id="input" spellcheck="false" placeholder="The Ritual of Steel"></textarea>
 
-    html { min-height: 100%; background: var(--bg); }
+<label for="output">fraktur output</label>
+<textarea id="output" spellcheck="false" readonly placeholder="𝕿𝖍𝖊 𝕽𝖎𝖙𝖚𝖆𝖑 𝖔𝖋 𝕾𝖙𝖊𝖊𝖑"></textarea>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background:
-        radial-gradient(circle at center, rgba(0, 255, 102, 0.13), transparent 34rem),
-        linear-gradient(135deg, rgba(0, 255, 102, 0.08), transparent 38%),
-        #000;
-      color: var(--text);
-      font-family: "Courier New", Courier, monospace;
-      overflow-x: hidden;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      background:
-        radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(0, 0, 0, 0.78) 100%),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.024),
-          rgba(255, 255, 255, 0.024) 1px,
-          transparent 1px,
-          transparent 4px
-        );
-      pointer-events: none;
-    }
-
-    .screen {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      padding: clamp(1rem, 4vw, 2rem);
-      padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top));
-      padding-bottom: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom));
-    }
-
-    main {
-      width: min(720px, 100%);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      box-shadow:
-        0 0 28px rgba(0, 255, 102, 0.12),
-        inset 0 0 20px rgba(0, 255, 102, 0.04);
-      padding: clamp(1.15rem, 5vw, 2.4rem);
-    }
-
-    .back {
-      display: inline-block;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      margin-bottom: 1rem;
-    }
-
-    .back:hover, .back:focus { color: var(--green); outline: none; }
-
-    .sigil {
-      color: var(--green);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
-      line-height: 1.45;
-      margin-bottom: 0.8rem;
-      opacity: 0.85;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--green);
-      font-size: clamp(1.9rem, 9vw, 3.2rem);
-      line-height: 0.98;
-      letter-spacing: 0.02em;
-      text-shadow: 0 0 18px rgba(0, 255, 102, 0.38);
-    }
-
-    .subtitle {
-      margin: 1rem 0 1.6rem;
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 58ch;
-      font-size: clamp(0.92rem, 3.5vw, 1rem);
-    }
-
-    label {
-      display: block;
-      color: var(--green);
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 8rem;
-      resize: vertical;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 1.05rem;
-      line-height: 1.45;
-      padding: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
-
-    textarea:focus { outline: none; border-color: var(--green-soft); }
-
-    textarea[readonly] { background: rgba(0, 0, 0, 0.4); }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 0.8rem;
-    }
-
-    button {
-      cursor: pointer;
-      background: var(--green-faint);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.5rem 0.9rem;
-    }
-
-    button:hover, button:focus {
-      color: var(--green);
-      border-color: var(--green-soft);
-      background: rgba(0, 255, 102, 0.22);
-      outline: none;
-    }
-
-    button.primary {
-      border-color: var(--green-soft);
-      color: var(--green);
-    }
-
-    .status {
-      min-height: 1.4em;
-      color: var(--green);
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-    }
-
-    footer {
-      margin-top: 1.6rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.5;
-    }
-
-    code { color: var(--green); }
-  </style>
-</head>
-<body>
-  <div class="screen">
-    <main>
-      <a class="back" href="/">← back to tools</a>
-      <div class="sigil">text mutation // glyph substitution</div>
-      <h1>FRAKTUR FORGE</h1>
-      <p class="subtitle">
-        Convert plain text into Unicode Fraktur. Useful for ID3 tags, occult
-        titles, and other extremely normal file-management rituals.
-      </p>
-
-      <label for="input">plain text</label>
-      <textarea id="input" spellcheck="false" placeholder="The Ritual of Steel"></textarea>
-
-      <label for="output">fraktur output</label>
-      <textarea id="output" spellcheck="false" readonly placeholder="𝕿𝖍𝖊 𝕽𝖎𝖙𝖚𝖆𝖑 𝖔𝖋 𝕾𝖙𝖊𝖊𝖑"></textarea>
-
-      <div class="controls">
-        <button class="primary" id="convertBtn" type="button">convert</button>
-        <button id="copyBtn" type="button">copy output</button>
-        <button id="clearBtn" type="button">clear</button>
-        <button id="exampleBtn" type="button">insert example</button>
-      </div>
-      <div class="status" id="status" aria-live="polite"></div>
-
-      <footer>
-        Δ basic Latin A-Z / a-z mapped // German ä ö ü ß (and Ä Ö Ü ẞ) supported,
-        umlauts via combining diaeresis and ß as 𝖘𝖘 // numbers, punctuation and
-        unknown glyphs preserved // nothing leaves this page // entropy contained
-      </footer>
-    </main>
-  </div>
-
-  <script>
-    const map = {
-      "A":"𝕬","B":"𝕭","C":"𝕮","D":"𝕯","E":"𝕰","F":"𝕱","G":"𝕲","H":"𝕳","I":"𝕴","J":"𝕵","K":"𝕶","L":"𝕷","M":"𝕸",
-      "N":"𝕹","O":"𝕺","P":"𝕻","Q":"𝕼","R":"𝕽","S":"𝕾","T":"𝕿","U":"𝖀","V":"𝖁","W":"𝖂","X":"𝖃","Y":"𝖄","Z":"𝖅",
-      "a":"𝖆","b":"𝖇","c":"𝖈","d":"𝖉","e":"𝖊","f":"𝖋","g":"𝖌","h":"𝖍","i":"𝖎","j":"𝖏","k":"𝖐","l":"𝖑","m":"𝖒",
-      "n":"𝖓","o":"𝖔","p":"𝖕","q":"𝖖","r":"𝖗","s":"𝖘","t":"𝖙","u":"𝖚","v":"𝖛","w":"𝖜","x":"𝖝","y":"𝖞","z":"𝖟",
-      "Ä":"𝕬̈","Ö":"𝕺̈","Ü":"𝖀̈","ä":"𝖆̈","ö":"𝖔̈","ü":"𝖚̈",
-      "À":"𝕬̀","Á":"𝕬́","Â":"𝕬̂","È":"𝕰̀","É":"𝕰́","Ê":"𝕰̂","Ì":"𝕴̀","Í":"𝕴́","Î":"𝕴̂",
-      "Ò":"𝕺̀","Ó":"𝕺́","Ô":"𝕺̂","Ù":"𝖀̀","Ú":"𝖀́","Û":"𝖀̂",
-      "à":"𝖆̀","á":"𝖆́","â":"𝖆̂","è":"𝖊̀","é":"𝖊́","ê":"𝖊̂","ì":"𝖎̀","í":"𝖎́","î":"𝖎̂",
-      "ò":"𝖔̀","ó":"𝖔́","ô":"𝖔̂","ù":"𝖚̀","ú":"𝖚́","û":"𝖚̂",
-      "ß":"𝖘𝖘","ẞ":"𝕾𝕾"
-    };
-
-    const input = document.getElementById("input");
-    const output = document.getElementById("output");
-    const status = document.getElementById("status");
-    const convertBtn = document.getElementById("convertBtn");
-    const copyBtn = document.getElementById("copyBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const exampleBtn = document.getElementById("exampleBtn");
-
-    function toFraktur(text) {
-      // Normalize so decomposed umlauts (a + combining diaeresis) match the map.
-      return Array.from(text.normalize("NFC")).map(char => map[char] || char).join("");
-    }
-
-    function convert() {
-      output.value = toFraktur(input.value);
-      status.textContent = "";
-    }
-
-    async function copyOutput() {
-      convert();
-      if (!output.value) {
-        status.textContent = "Nothing to copy.";
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(output.value);
-        status.textContent = "Copied to clipboard.";
-      } catch (err) {
-        output.focus();
-        output.select();
-        document.execCommand("copy");
-        status.textContent = "Copied using fallback method.";
-      }
-    }
-
-    input.addEventListener("input", convert);
-    convertBtn.addEventListener("click", convert);
-    copyBtn.addEventListener("click", copyOutput);
-
-    clearBtn.addEventListener("click", () => {
-      input.value = "";
-      output.value = "";
-      status.textContent = "";
-      input.focus();
-    });
-
-    exampleBtn.addEventListener("click", () => {
-      input.value = "The Ritual of Steel\nThe Anvil Beneath the Mountain\nOf Blood and Black Flame";
-      convert();
-    });
-
-    convert();
-  </script>
-</body>
-</html>
+<div class="controls">
+  <button class="primary" id="convertBtn" type="button">convert</button>
+  <button id="copyBtn" type="button">copy output</button>
+  <button id="clearBtn" type="button">clear</button>
+  <button id="exampleBtn" type="button">insert example</button>
+</div>
+<div class="status" id="status" aria-live="polite"></div>

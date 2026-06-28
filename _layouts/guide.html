@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<div class="sigil">{{ page.sigil | default: "field notes // recorded procedure" }}</div>
+<h1>{{ page.title | upcase }}</h1>
+{% if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+{{ content }}
+{% if page.tool %}
+<p class="lede" style="margin-top:1.4rem">
+  → <a class="inline" href="{{ page.tool | relative_url }}">Open the tool</a>
+</p>
+{% endif %}

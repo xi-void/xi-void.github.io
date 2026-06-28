@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+{% include head.html %}
+</head>
+<body>
+  <div class="screen">
+    <main>
+      {% include nav.html %}
+      {{ content }}
+      {% include footer.html sign=page.footer_sign note=page.footer_note %}
+    </main>
+  </div>
+
+  {% include palette.html %}
+  <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+  {% if page.script %}<script src="{{ page.script | relative_url }}" defer></script>{% endif %}
+</body>
+</html>

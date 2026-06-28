@@ -1,182 +1,20 @@
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Guides // Xi-Void</title>
-  <style>
-    :root {
-      --bg: #000;
-      --green: #00ff66;
-      --green-soft: rgba(0, 255, 102, 0.72);
-      --green-faint: rgba(0, 255, 102, 0.13);
-      --panel: rgba(0, 0, 0, 0.82);
-      --border: rgba(0, 255, 102, 0.36);
-      --text: #d8ffe5;
-      --muted: #79a989;
-    }
+---
+layout: default
+title: Guides
+description: Written procedures and per-tool documentation for Xi-Void Tools.
+---
+<div class="sigil">field notes // recorded procedure</div>
+<h1>GUIDES</h1>
+<p class="subtitle">
+  Written procedures and notes on using the tools, plus assorted acts of
+  symbolic maintenance.
+</p>
 
-    * { box-sizing: border-box; }
-
-    html { min-height: 100%; background: var(--bg); }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background:
-        radial-gradient(circle at center, rgba(0, 255, 102, 0.13), transparent 34rem),
-        linear-gradient(135deg, rgba(0, 255, 102, 0.08), transparent 38%),
-        #000;
-      color: var(--text);
-      font-family: "Courier New", Courier, monospace;
-      overflow-x: hidden;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      background:
-        radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(0, 0, 0, 0.78) 100%),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.024),
-          rgba(255, 255, 255, 0.024) 1px,
-          transparent 1px,
-          transparent 4px
-        );
-      pointer-events: none;
-    }
-
-    .screen {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      padding: clamp(1rem, 4vw, 2rem);
-      padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top));
-      padding-bottom: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom));
-    }
-
-    main {
-      width: min(720px, 100%);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      box-shadow:
-        0 0 28px rgba(0, 255, 102, 0.12),
-        inset 0 0 20px rgba(0, 255, 102, 0.04);
-      padding: clamp(1.15rem, 5vw, 2.4rem);
-    }
-
-    .back {
-      display: inline-block;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      margin-bottom: 1rem;
-    }
-
-    .back:hover, .back:focus { color: var(--green); outline: none; }
-
-    .sigil {
-      color: var(--green);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
-      line-height: 1.45;
-      margin-bottom: 0.8rem;
-      opacity: 0.85;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--green);
-      font-size: clamp(2.1rem, 12vw, 4.4rem);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      text-shadow: 0 0 18px rgba(0, 255, 102, 0.38);
-    }
-
-    .subtitle {
-      margin: 1rem 0 1.8rem;
-      color: var(--muted);
-      line-height: 1.65;
-      max-width: 58ch;
-      font-size: clamp(0.95rem, 3.7vw, 1.05rem);
-    }
-
-    .list { display: grid; gap: 0.85rem; }
-
-    .entry {
-      display: block;
-      border: 1px solid var(--border);
-      background: var(--green-faint);
-      color: var(--text);
-      text-decoration: none;
-      padding: 0.95rem;
-    }
-
-    .entry:hover, .entry:focus {
-      background: rgba(0, 255, 102, 0.22);
-      border-color: var(--green-soft);
-      transform: translateX(0.25rem);
-      outline: none;
-    }
-
-    .entry-title {
-      display: block;
-      color: var(--green);
-      font-weight: bold;
-      font-size: clamp(1rem, 4.5vw, 1.2rem);
-      margin-bottom: 0.35rem;
-    }
-
-    .entry-desc {
-      display: block;
-      color: var(--muted);
-      font-size: clamp(0.78rem, 3.5vw, 0.9rem);
-    }
-
-    footer {
-      margin-top: 1.6rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.5;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .entry:hover, .entry:focus { transform: none; }
-    }
-  </style>
-</head>
-<body>
-  <div class="screen">
-    <main>
-      <a class="back" href="/">← back to index</a>
-      <div class="sigil">field notes // recorded procedure</div>
-      <h1>GUIDES</h1>
-      <p class="subtitle">
-        Written procedures and notes on using the tools, plus assorted acts of
-        symbolic maintenance.
-      </p>
-
-      <nav class="list" aria-label="Guides">
-        <a class="entry" href="/guide/getting-started">
-          <span class="entry-title">Getting Started</span>
-          <span class="entry-desc">What lives here and how the tools fit together.</span>
-        </a>
-      </nav>
-
-      <footer>
-        Δ static node // notes exposed // entropy contained
-      </footer>
-    </main>
-  </div>
-</body>
-</html>
+<nav class="list" aria-label="Guides">
+  {% for g in site.data.guides %}
+  <a class="entry" href="{{ '/guide/' | append: g.slug | append: '/' | relative_url }}">
+    <span class="entry-title">{{ g.title }}</span>
+    <span class="entry-desc">{{ g.desc }}</span>
+  </a>
+  {% endfor %}
+</nav>
