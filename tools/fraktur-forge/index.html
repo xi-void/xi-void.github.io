@@ -212,8 +212,9 @@
       <div class="status" id="status" aria-live="polite"></div>
 
       <footer>
-        Δ basic Latin A-Z / a-z mapped // numbers, punctuation and unknown glyphs
-        preserved // nothing leaves this page // entropy contained
+        Δ basic Latin A-Z / a-z mapped // German ä ö ü ß (and Ä Ö Ü ẞ) supported,
+        umlauts via combining diaeresis and ß as 𝖘𝖘 // numbers, punctuation and
+        unknown glyphs preserved // nothing leaves this page // entropy contained
       </footer>
     </main>
   </div>
@@ -229,7 +230,7 @@
       "Ò":"𝕺̀","Ó":"𝕺́","Ô":"𝕺̂","Ù":"𝖀̀","Ú":"𝖀́","Û":"𝖀̂",
       "à":"𝖆̀","á":"𝖆́","â":"𝖆̂","è":"𝖊̀","é":"𝖊́","ê":"𝖊̂","ì":"𝖎̀","í":"𝖎́","î":"𝖎̂",
       "ò":"𝖔̀","ó":"𝖔́","ô":"𝖔̂","ù":"𝖚̀","ú":"𝖚́","û":"𝖚̂",
-      "ß":"𝖘𝖘"
+      "ß":"𝖘𝖘","ẞ":"𝕾𝕾"
     };
 
     const input = document.getElementById("input");
@@ -241,7 +242,8 @@
     const exampleBtn = document.getElementById("exampleBtn");
 
     function toFraktur(text) {
-      return Array.from(text).map(char => map[char] || char).join("");
+      // Normalize so decomposed umlauts (a + combining diaeresis) match the map.
+      return Array.from(text.normalize("NFC")).map(char => map[char] || char).join("");
     }
 
     function convert() {
