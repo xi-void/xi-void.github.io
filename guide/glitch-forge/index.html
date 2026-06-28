@@ -1,0 +1,29 @@
+---
+layout: guide
+title: Using Glitch Forge
+sigil: field notes // glitch forge
+lede: Corrupt text with stacked Unicode combining marks.
+description: How to use Glitch Forge to create "zalgo" text from stacked combining marks.
+tool: /tools/glitch-forge/
+---
+<h2>What it does</h2>
+<p>
+  Glitch Forge layers Unicode combining diacritical marks onto every character,
+  producing the dripping, corrupted look usually called "zalgo". The marks attach
+  above, through and below each letter.
+</p>
+
+<h2>How to use it</h2>
+<ul>
+  <li>Type into the <strong>plain text</strong> box; output updates as you type.</li>
+  <li>Set <strong>corruption</strong> from minor to total to control how many marks stack up.</li>
+  <li>Use <strong>zones</strong> to keep the decay above the line, below it, or both.</li>
+  <li>Press <strong>copy output</strong> to grab the result.</li>
+</ul>
+
+<h2>Notes</h2>
+<p>
+  Because the effect is built from real combining characters, rendering varies by
+  font and platform, and some apps deliberately limit how many marks they draw.
+  Very heavy corruption can be slow to render in other programs.
+</p>

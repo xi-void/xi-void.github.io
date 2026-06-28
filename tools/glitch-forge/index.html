@@ -1,0 +1,50 @@
+---
+layout: tool
+title: Glitch Forge
+sigil: text corruption // combining decay
+subtitle: >-
+  Drown plain text in stacked combining marks — the effect commonly called
+  "zalgo". Dial the corruption up or down; everything runs in this tab.
+description: Turn plain text into corrupted "zalgo" text using stacked Unicode combining marks, in your browser.
+script: /assets/js/glitch-forge.js
+guide: /guide/glitch-forge/
+footer_sign: nothing leaves this page
+footer_note: >-
+  Corruption is built from Unicode combining diacritical marks layered above,
+  through and below each character. Rendering varies by font and platform.
+---
+<style>#gf-in, #gf-out { margin-bottom: 1.2rem; }</style>
+
+<label for="gf-in">plain text</label>
+<textarea id="gf-in" spellcheck="false" placeholder="he comes"></textarea>
+
+<div class="field-row">
+  <div class="field">
+    <label for="gf-level">corruption</label>
+    <select id="gf-level">
+      <option value="1">minor</option>
+      <option value="2" selected>moderate</option>
+      <option value="3">heavy</option>
+      <option value="4">total</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="gf-zones">zones</label>
+    <select id="gf-zones">
+      <option value="all" selected>up · mid · down</option>
+      <option value="up">up only</option>
+      <option value="down">down only</option>
+    </select>
+  </div>
+</div>
+
+<label for="gf-out">corrupted output</label>
+<textarea id="gf-out" spellcheck="false" readonly placeholder="h̸̛e̵̚ ̶c̷o̴m̶e̵s̸"></textarea>
+
+<div class="controls">
+  <button class="primary" id="gf-convert" type="button">corrupt</button>
+  <button id="gf-copy" type="button">copy output</button>
+  <button id="gf-clear" type="button">clear</button>
+  <button id="gf-example" type="button">insert example</button>
+</div>
+<div class="status" id="gf-status" aria-live="polite"></div>

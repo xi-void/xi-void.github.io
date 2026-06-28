@@ -1,0 +1,31 @@
+---
+layout: guide
+title: Using Digest
+sigil: field notes // digest
+lede: Hash text with SHA-256, SHA-1, SHA-384 and SHA-512.
+description: How to use Digest to compute SHA hashes of text in your browser.
+tool: /tools/digest/
+---
+<h2>What it does</h2>
+<p>
+  Digest computes a cryptographic hash of your text using the browser's built-in
+  <code>crypto.subtle</code>. A hash is a fixed-length, one-way fingerprint: the
+  same input always yields the same digest, and you cannot reverse it back to the
+  original.
+</p>
+
+<h2>How to use it</h2>
+<ul>
+  <li>Choose an <strong>algorithm</strong> — SHA-256 is the sensible default.</li>
+  <li>Type into the <strong>input</strong> box; the digest updates live.</li>
+  <li>Switch the output between lowercase and uppercase hex.</li>
+  <li>Press <strong>copy digest</strong> to grab the result.</li>
+</ul>
+
+<h2>Notes</h2>
+<p>
+  Web Crypto only runs in a secure context, so the tool works over HTTPS or on
+  <code>localhost</code>. Input is encoded as UTF-8 before hashing. SHA-1 is
+  included for compatibility but is no longer collision-resistant — prefer SHA-256
+  or stronger for anything that matters.
+</p>

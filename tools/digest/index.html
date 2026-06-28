@@ -1,0 +1,52 @@
+---
+layout: tool
+title: Digest
+sigil: hashing // one-way transforms
+subtitle: >-
+  Compute cryptographic hashes of text — SHA-256, SHA-1, SHA-384, SHA-512 —
+  using the browser's built-in Web Crypto. One-way and entirely local.
+description: Compute SHA-256, SHA-1, SHA-384 and SHA-512 hashes of text in your browser with the Web Crypto API.
+script: /assets/js/digest.js
+guide: /guide/digest/
+footer_sign: hashed locally
+footer_note: >-
+  Hashing uses crypto.subtle, which requires a secure context (https or
+  localhost). Input is encoded as UTF-8 before hashing. SHA-1 is shown for
+  compatibility only — it is not collision-resistant.
+---
+<style>
+  #dg-out { font-size: 0.95rem; word-break: break-all; min-height: 1.6em; }
+  .dg-bytes { color: var(--muted); font-size: 0.78rem; margin-top: 0.5rem; }
+</style>
+
+<div class="field-row">
+  <div class="field">
+    <label for="dg-algo">algorithm</label>
+    <select id="dg-algo">
+      <option value="SHA-256">SHA-256</option>
+      <option value="SHA-1">SHA-1</option>
+      <option value="SHA-384">SHA-384</option>
+      <option value="SHA-512">SHA-512</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="dg-case">output</label>
+    <select id="dg-case">
+      <option value="lower">lowercase hex</option>
+      <option value="upper">uppercase hex</option>
+    </select>
+  </div>
+</div>
+
+<label for="dg-in">input</label>
+<textarea id="dg-in" spellcheck="false" placeholder="text to hash"></textarea>
+
+<label for="dg-out" style="margin-top:1.2rem">digest</label>
+<div class="km-out" id="dg-out" aria-live="polite" style="background:rgba(0,0,0,0.6);border:1px solid var(--green-soft);color:var(--green);padding:0.9rem"></div>
+<div class="dg-bytes" id="dg-bytes"></div>
+
+<div class="controls">
+  <button class="primary" id="dg-copy" type="button">copy digest</button>
+  <button id="dg-clear" type="button">clear</button>
+</div>
+<div class="status" id="dg-status" aria-live="polite"></div>

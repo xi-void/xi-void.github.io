@@ -1,0 +1,30 @@
+---
+layout: guide
+title: Using Keymaker
+sigil: field notes // keymaker
+lede: Generate strong passwords and passphrases locally.
+description: How to use Keymaker to generate strong random passwords and passphrases with Web Crypto.
+tool: /tools/keymaker/
+---
+<h2>What it does</h2>
+<p>
+  Keymaker produces random secrets using <code>crypto.getRandomValues</code>,
+  the browser's cryptographically secure random source. It offers two modes:
+  character <strong>passwords</strong> and word-based <strong>passphrases</strong>.
+</p>
+
+<h2>How to use it</h2>
+<ul>
+  <li>Choose <strong>password</strong> or <strong>passphrase</strong> at the top.</li>
+  <li>For passwords, set the length and toggle character sets; enable <em>avoid look-alikes</em> to drop <code>Il1O0o</code>.</li>
+  <li>For passphrases, set the word count, separator, capitalization and whether to append a number.</li>
+  <li>Press <strong>generate</strong> for a fresh value and <strong>copy</strong> to grab it.</li>
+</ul>
+
+<h2>Notes</h2>
+<p>
+  The entropy estimate assumes each character or word is chosen independently and
+  uniformly — a useful guide, not a guarantee about any specific output. Generate
+  a new secret for each account and store it in a real password manager. Nothing
+  generated here is transmitted or saved.
+</p>

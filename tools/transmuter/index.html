@@ -1,0 +1,47 @@
+---
+layout: tool
+title: Transmuter
+sigil: text mutation // many alphabets
+subtitle: >-
+  Type once and read it back in a dozen Unicode styles — small caps, upside
+  down, bold, double-struck, monospace and more. Tap any line to copy it.
+description: Convert text into many Unicode styles at once — small caps, upside-down, bold, monospace, double-struck and more.
+script: /assets/js/transmuter.js
+guide: /guide/transmuter/
+footer_sign: nothing leaves this page
+footer_note: >-
+  These are real Unicode characters, not fonts, so they survive copy-paste into
+  most apps. Some styles have gaps and fall back to plain characters; rendering
+  depends on the receiving font.
+---
+<style>
+  #tx-in { margin-bottom: 1.2rem; min-height: 5rem; }
+  .tx-row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr auto;
+    gap: 0.6rem;
+    align-items: center;
+    border: 1px solid var(--border);
+    background: var(--green-faint);
+    padding: 0.55rem 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .tx-name { color: var(--green); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .tx-out { overflow-wrap: anywhere; line-height: 1.5; min-height: 1.4em; }
+  .tx-row button { padding: 0.3rem 0.6rem; }
+  @media (max-width: 520px) {
+    .tx-row { grid-template-columns: 1fr auto; }
+    .tx-name { grid-column: 1 / -1; }
+  }
+</style>
+
+<label for="tx-in">plain text</label>
+<textarea id="tx-in" spellcheck="false" placeholder="transmute me"></textarea>
+
+<div class="controls">
+  <button id="tx-example" type="button">insert example</button>
+  <button id="tx-clear" type="button">clear</button>
+</div>
+
+<div id="tx-rows" aria-live="polite"></div>
+<div class="status" id="tx-status" aria-live="polite"></div>

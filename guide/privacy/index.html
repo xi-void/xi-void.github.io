@@ -1,0 +1,46 @@
+---
+layout: guide
+title: Privacy
+sigil: field notes // containment
+lede: Why nothing you type here ever leaves your device.
+description: Privacy notes for Xi-Void Tools — everything runs locally, with no servers, accounts or tracking.
+footer_sign: entropy contained
+---
+<h2>The short version</h2>
+<p>
+  Everything happens in your browser. There is no backend to send data to, no
+  analytics, no cookies for tracking, and no accounts. Once the page has loaded
+  you can disconnect from the network and every tool still works.
+</p>
+
+<h2>What stays on your device</h2>
+<ul>
+  <li>
+    <a class="inline" href="{{ '/tools/notepad/' | relative_url }}">Notepad</a>
+    saves its contents to this browser's <code>localStorage</code>. It never
+    leaves your machine and you can wipe it with the <em>clear</em> button.
+  </li>
+  <li>
+    Your accent-theme choice is remembered the same way, under a single
+    <code>localStorage</code> key.
+  </li>
+  <li>
+    Every other tool — text transforms, ciphers, hashing, key generation —
+    processes input in memory and keeps nothing.
+  </li>
+</ul>
+
+<h2>Keys and hashes</h2>
+<p>
+  <a class="inline" href="{{ '/tools/keymaker/' | relative_url }}">Keymaker</a>
+  and <a class="inline" href="{{ '/tools/digest/' | relative_url }}">Digest</a>
+  use the browser's built-in Web Crypto API. Generated passwords and computed
+  hashes are produced locally and never transmitted.
+</p>
+
+<h2>Offline</h2>
+<p>
+  A service worker caches the pages you visit, so the site is installable and
+  keeps working without a connection. You can confirm this for yourself: load a
+  tool, switch off your network, and reload.
+</p>
