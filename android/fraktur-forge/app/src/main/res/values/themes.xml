@@ -1,0 +1,14 @@
+<resources>
+    <!-- Framework Material (available since API 21) — no AppCompat dependency. -->
+    <style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorHint">@color/muted</item>
+        <item name="android:colorAccent">@color/green</item>
+        <item name="android:colorControlNormal">@color/border</item>
+        <item name="android:colorControlActivated">@color/green</item>
+    </style>
+</resources>

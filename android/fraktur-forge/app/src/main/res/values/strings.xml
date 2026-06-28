@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Fraktur Forge</string>
+    <string name="sigil">text mutation // glyph substitution</string>
+    <string name="title">FRAKTUR FORGE</string>
+    <string name="subtitle">Convert plain text into Unicode Fraktur. Runs entirely on-device.</string>
+    <string name="label_input">plain text</string>
+    <string name="label_output">fraktur output</string>
+    <string name="hint_input">The Ritual of Steel</string>
+    <string name="action_copy">copy</string>
+    <string name="action_clear">clear</string>
+    <string name="action_example">example</string>
+    <string name="copied">Copied to clipboard</string>
+    <string name="nothing_to_copy">Nothing to copy</string>
+    <string name="example_text">The Ritual of Steel\nThe Anvil Beneath the Mountain\nOf Blood and Black Flame</string>
+    <string name="footer">Δ on-device // no network // entropy contained</string>
+</resources>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sigil"
+            android:textColor="@color/green"
+            android:textSize="12sp"
+            android:letterSpacing="0.12"
+            android:textAllCaps="true"
+            android:alpha="0.85"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/title"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:textSize="34sp"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="18dp"
+            android:text="@string/subtitle"
+            android:textColor="@color/muted"
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.3"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/label_input"
+            android:textColor="@color/green"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.12"
+            android:fontFamily="monospace" />
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp"
+            android:gravity="top|start"
+            android:background="@drawable/bg_field"
+            android:padding="12dp"
+            android:hint="@string/hint_input"
+            android:textColor="@color/text"
+            android:textColorHint="@color/muted"
+            android:textSize="17sp"
+            android:fontFamily="monospace"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:importantForAutofill="no"
+            android:textCursorDrawable="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/label_output"
+            android:textColor="@color/green"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.12"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/output"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp"
+            android:gravity="top|start"
+            android:background="@drawable/bg_field"
+            android:padding="12dp"
+            android:textColor="@color/text"
+            android:textSize="18sp"
+            android:fontFamily="monospace"
+            android:textIsSelectable="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/copy"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_button"
+                android:text="@string/action_copy"
+                android:textColor="@color/green"
+                android:textAllCaps="true"
+                android:textSize="13sp"
+                android:fontFamily="monospace" />
+
+            <Button
+                android:id="@+id/clear"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_button"
+                android:text="@string/action_clear"
+                android:textColor="@color/text"
+                android:textAllCaps="true"
+                android:textSize="13sp"
+                android:fontFamily="monospace" />
+
+            <Button
+                android:id="@+id/example"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button"
+                android:text="@string/action_example"
+                android:textColor="@color/text"
+                android:textAllCaps="true"
+                android:textSize="13sp"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/footer"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+</ScrollView>
