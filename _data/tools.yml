@@ -29,7 +29,7 @@
 - slug: digest
   title: Digest
   sigil: hashing // one-way transforms
-  blurb: SHA-256 / SHA-1 hashes computed in your browser.
+  blurb: SHA-256 / SHA-1 / SHA-384 / SHA-512 hashes computed in your browser.
 
 - slug: notepad
   title: Notepad
