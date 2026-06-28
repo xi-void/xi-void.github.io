@@ -1,0 +1,12 @@
+<resources>
+    <!-- ARGB. Mirrors the web tool's black/green terminal palette. -->
+    <color name="bg">#FF000000</color>
+    <color name="green">#FF00FF66</color>
+    <color name="green_soft">#B800FF66</color>
+    <color name="green_faint">#2100FF66</color>
+    <color name="green_press">#3800FF66</color>
+    <color name="text">#FFD8FFE5</color>
+    <color name="muted">#FF79A989</color>
+    <color name="border">#5C00FF66</color>
+    <color name="field_bg">#99000000</color>
+</resources>
